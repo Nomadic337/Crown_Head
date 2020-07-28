@@ -14,7 +14,7 @@
     border: none;
     cursor: pointer;
     vertical-align: middle;
-    display: flex;
+    // display: flex;  // does button in cart-dropdown remain centered?
     justify-content: center;
   
     &:hover {
@@ -46,6 +46,12 @@
       }
 
     }
+
+    .btn:active { 
+      box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24); 
+      transform: translateY(4px); 
+      /* Moving button 4px to y-axis */ 
+  } 
 
 
 
