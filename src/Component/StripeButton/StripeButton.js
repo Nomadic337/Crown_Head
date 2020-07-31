@@ -13,7 +13,7 @@ const StripeCheckoutButton = ({ price }) => {
     return (
         <StripeCheckout 
             label='Pay Now'
-            name = 'Crowned Head Clothing Ltd.'
+            name = 'Crown Head Clothing Ltd.'
             shippingAddress
             billingAddress
             image='https://sendeyo.com/up/d/f3eb2117da'
