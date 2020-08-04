@@ -1,16 +1,21 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'; 
-import { auth, createUserProfileDocument } from './Firebase/Firebase.utils'; 
-import { connect } from 'react-redux'; 
-import { setCurrentUser } from './Redux/User/UserActions'; 
-import { createStructuredSelector} from 'reselect';
-import { selectCurrentUser } from './Redux/User/UserSelector';
+import React from 'react'; //
+import { Switch, Route, Redirect } from 'react-router-dom';  //
+import { connect } from 'react-redux';  //
+import { createStructuredSelector} from 'reselect'; //
+
+import { setCurrentUser } from './Redux/User/UserActions';  //
+
+import { selectCurrentUser } from './Redux/User/UserSelector'; //
+// import { selectCollectionsForPreview } from './Redux/Shop/ShopSelector'; // To remove
+import { auth, createUserProfileDocument } from './Firebase/Firebase.utils';
+
 import HomePage from './Pages/HomePage/HomePage'; 
 import ShopPage from './Pages/Shop/ShopPage'; 
 import Header from './Component/Header/Header'; 
 import CheckoutPage from './Pages/CheckoutPage/CheckoutPage';
 import SignInAndSignUpPage from './Pages/Sign-In-Out/Sign-In-Out'; 
-import './App.css'; 
+
+import './App.css'; //
 
 
 class App extends React.Component {
@@ -20,7 +25,6 @@ class App extends React.Component {
   componentDidMount() {
     const { setCurrentUser } = this.props;
 
-
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -29,12 +33,12 @@ class App extends React.Component {
             setCurrentUser ({
               id: snapShot.id,
               ...snapShot.data()
-          });
-        });
+          })
+        })
       }
       setCurrentUser(userAuth);
   
-    });
+    })
   }
 
   componentWillUnmount() {
@@ -72,7 +76,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
 })
 
 export default connect( 
