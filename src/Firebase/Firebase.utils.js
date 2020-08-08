@@ -14,15 +14,17 @@ const config = {
     measurementId: "G-BDW9Z1WY3R"
 };
 
+// Initializing firebase
+firebase.initializeApp(config);
+firebase.analytics();
+
 // Firebase Interactions/Firebase snapShot to test if data/UserAuth exists after user sign in
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
     const userRef = firestore.doc(`users/${userAuth.uid}`)
-    // const collectionRef = firestore.collection('users')
 
     const snapShot = await userRef.get()
-    // const CollectionSnapshot = await collectionRef.get()
 
     // create new user if it doesn't already exist
     if (!snapShot.exists) {
@@ -57,7 +59,7 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
     return await batch.commit()
 }
 
-export const convertCollectionsSnapshotToMap = (collections) => {
+export const convertCollectionsSnapshotToMap = collections => {
     const transformedCollection = collections.docs.map(doc => {
         const { title, items } = doc.data();
     
@@ -70,15 +72,11 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     })
 
     return transformedCollection.reduce((accumulator, collection) => {
-        accumulator[collection.title.toLowerCase()] = collection
-        return accumulator
+        accumulator[collection.title.toLowerCase()] = collection;
+        return accumulator;
     }, {})
 }
 
-
-// Initializing firebase
-firebase.initializeApp(config);
-firebase.analytics();
 
 // Google Sign in Popup
 export const auth = firebase.auth();
